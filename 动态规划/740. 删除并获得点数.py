@@ -10,22 +10,9 @@
 
 
 class Solution:
-    #dp[i]=max(dp[i-1],dp[i-2]+nums[i-1])
-    #投到第i个房子时，有两中偷法：
-    # 1，偷钱i-1，最后一个不偷
-    # 2，最后一个偷，偷前i-2个
-    def rob(self, nums: list[int]) -> int:
-        if len(nums)==1:
-            return nums[0]
-        if len(nums)==2:
-            return max(nums[0],nums[1])
-        
-        dp=[0]*(len(nums)+1)
-        # dp[i]表示到第i个房子时，偷到的最大值
-        for i in range(2,len(nums)+1):
-            dp[i]=max(dp[i-1],dp[i-2]+nums[i-1])
-        return dp[len(nums)]
+    def deleteAndEarn(self, nums: list[int]) -> int:
+        pass
 if __name__=="__main__":
     s=Solution()
-    k = s.rob([1,2,3,1])
+    k = s.rob([2,2,3,3,3,4])
     print(k)
