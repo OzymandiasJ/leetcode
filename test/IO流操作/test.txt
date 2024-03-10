@@ -1,0 +1,33 @@
+此外，还有许多其他的IO类和接口，用于处理网络连接、对象序列化、缓冲等特定的IO需求。
+使用IO流的基本步骤如下：
+1. 打开流：创建合适的流对象，将其连接到输入源或输出目标。
+2. 读取或写入数据：使用流对象提供的方法读取或写入数据。对于字节流，通常使用read()和write()方法，对于字符流，通常使用read()和write()方法或使用BufferedReader和BufferedWriter类。
+3. 关闭流：在不再需要流时，使用close()方法关闭流。这将释放底层资源并确保数据的完整性。
+需要注意的是，使用IO流时可能会抛出IOException异常，因此需要适当地处理异常。
+一个使用IO流操作文件实例如下
+public void fileReadWrite(){
+    String filePath = "src/test.IO流操作/test.txt"; // 替换为实际的文件路径
+
+    // 写入文件
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+        writer.write("Hello, World!");
+        writer.newLine();
+        writer.write("This is an example of file read and write in Java.");
+    } catch (IOException e) {
+        System.out.println("写入文件时出错：" + e.getMessage());
+    }
+
+    // 读取文件
+    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+    } catch (IOException e) {
+        System.out.println("读取文件时出错：" + e.getMessage());
+    }
+}
+3.2 怎么用流打开一个大文件？
+打开大文件，应避免直接将文件中的数据全部读取到内存中，可以采用分次读取的方式。 
+1. 使用缓冲流。缓冲流内部维护了一个缓冲区，通过与缓冲区的交互，减少与设备的交互次数。使用 缓冲输入流时，它每次会读取一批数据将缓冲区填满，每次调用读取方法并不是直接从设备取值， 而是从缓冲区取值，当缓冲区为空时，它会再一次读取数据，将缓冲区填满。使用缓冲输出流时， 每次调用写入方法并不是直接写入到设备，而是写入缓冲区，当缓冲区填满时它会自动刷入设备。 
+2. 使用NIO。NIO采用内存映射文件的方式来处理输入/输出，NIO将文件或文件的一段区域映射到内 存中，这样就可以像访问内存一样来访问文件了（这种方式模拟了操作系统上的虚拟内存的概 念），通过这种方式来进行输入/输出比传统的输入/输出要快得多。
