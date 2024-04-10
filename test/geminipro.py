@@ -5,7 +5,7 @@ import google.generativeai as genai
 
 from IPython.display import display
 from IPython.display import Markdown
-genai.configure(api_key="AIzaSyBkuHL-y7G3JwFjQhDQ7UwfoCmC4K2VnmE")
+genai.configure(api_key="")
 
 def to_markdown(text):
   text = text.replace('•', '  *')
