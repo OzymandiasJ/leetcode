@@ -44,28 +44,24 @@ def listNodeToStr(head:ListNode,spliter="->"):
         p = p.next
     return s
 
-# 给定一个已排序的链表的头 head ， 删除原始链表中所有重复数字的节点，只留下不同的数字 。返回 已排序的链表 。
+# 给你一个链表的头节点 head 和一个特定值 x ，请你对链表进行分隔，
+# 使得所有 小于 x 的节点都出现在 大于或等于 x 的节点之前。
+# 你应当 保留 两个分区中每个节点的初始相对位置。
 class Solution:
-    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if not head:
-            return head
-        p=head
-        mydict = listNodeToDict(head)
-        while head and mydict[head.val]>1:
-            head = head.next
-        
-        while p.next:
-            if mydict[p.next.val]>1:
-                p.next=p.next.next
+    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
+        mylist=listNodeToList(head)
+        left=[]
+        right=[]
+        for item in mylist:
+            if item<x:
+                left.append(item)
             else:
-                p=p.next
-            
-        return head  
+                right.append(item)
+        return listToListNode(left+right)
 
 if __name__=="__main__":
     solution=Solution()
-    head = [1,1,1,2,3]
-    n = 1
-    k = solution.deleteDuplicates(listToListNode(head))
+    head = [1,4,3,2,5,2]
+    n = 3
+    k = solution.partition(listToListNode(head),n)
     print(listNodeToList(k))
-    

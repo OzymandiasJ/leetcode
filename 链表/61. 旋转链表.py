@@ -44,28 +44,23 @@ def listNodeToStr(head:ListNode,spliter="->"):
         p = p.next
     return s
 
-# 给定一个已排序的链表的头 head ， 删除原始链表中所有重复数字的节点，只留下不同的数字 。返回 已排序的链表 。
+# 给你一个链表的头节点 head ，旋转链表，将链表每个节点向右移动 k 个位置。
 class Solution:
-    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if not head:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        mylist=listNodeToList(head)
+        if len(mylist)==0:
             return head
-        p=head
-        mydict = listNodeToDict(head)
-        while head and mydict[head.val]>1:
-            head = head.next
+        k%=len(listNodeToList(head))
+        while k>0:
+            mylist.insert(0,mylist.pop())
+            k-=1
         
-        while p.next:
-            if mydict[p.next.val]>1:
-                p.next=p.next.next
-            else:
-                p=p.next
-            
-        return head  
+        return listToListNode(mylist)
 
 if __name__=="__main__":
     solution=Solution()
-    head = [1,1,1,2,3]
-    n = 1
-    k = solution.deleteDuplicates(listToListNode(head))
+    head = [1,2,3,4,5]
+    n = 2
+    k = solution.rotateRight(listToListNode(head),2)
     print(listNodeToList(k))
     
